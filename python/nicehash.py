@@ -289,11 +289,17 @@ class private_api:
         query = "market={}&side=sell&type=market&quantity={}".format(market, quantity)
         return self.request('POST', '/exchange/api/v2/order', query, None)
 
-    def cancel_exchange_order(self, market, order_id):
-        query = "market={}&orderId={}".format(market, order_id)
-        return self.request('DELETE', '/exchange/api/v2/order', query, None)
+    def get_mining_groups_list(self, extendedResponse):
+        query = "extendedResponse={}".format(extendedResponse)
+        return self.request('GET', '/main/api/v2/mining/groups/list', query, None)
 
-
+    def set_mining_rigs_status2(self, rigId, action):
+        set_status = {
+            "rigId": rigId,
+            "action": action
+        }
+        return self.request('POST', '/main/api/v2/mining/rigs/status2', "", set_status)
+    
 if __name__ == "__main__":
     parser = optparse.OptionParser()
 
