@@ -293,12 +293,47 @@ class private_api:
         query = "extendedResponse={}".format(extendedResponse)
         return self.request('GET', '/main/api/v2/mining/groups/list', query, None)
 
-    def set_mining_rigs_status2(self, rigId, action):
+    def get_mining_miningAddress(self):
+        return self.request('GET', '/main/api/v2/mining/miningAddress', "", None)
+
+    def get_mining_rig_stats_algo(self,rigId, algorithm, afterTimestamp, beforeTimestamp):
+        query = "rigId={}&algorithm={}&afterTimestamp={}&beforeTimestamp={}".format(rigId,algorithm,afterTimestamp,beforeTimestamp)
+        return self.request('GET', '/main/api/v2/mining/rig/stats/algo', query, None)
+
+    def get_mining_rig_stats_unpaid(self, rigId, afterTimestamp, beforeTimestamp):
+        query = "rigId={}&afterTimestamp={}&beforeTimestamp={}".format(rigId,afterTimestamp,beforeTimestamp)
+        return self.request('GET', '/main/api/v2/mining/rig/stats/unpaid', query, None)
+
+    def get_mining_rig2(self,rigId):
+        return self.request('GET', '/main/api/v2/mining/rig2/'+rigId, "", None)
+
+    def get_mining_rigs_activeWorkers(self,size, page, sortParameter, sortDirection):
+        query = "size={}&page={}&sortParameter={}&sortDirection={}".format(size,page,sortParameter, sortDirection)
+        return self.request('GET', '/main/api/v2/mining/rigs/activeWorkers', query, None)
+
+    def get_mining_rigs_payouts(self,beforeTimestamp, size, page):
+        query = "beforeTimestamp={}&size={}&page={}".format(beforeTimestamp,size,page)
+        return self.request('GET', '/main/api/v2/mining/rigs/payouts', query, None)
+
+    def get_mining_rigs_stats_algo(self,algorithm, afterTimestamp, beforeTimestamp):
+        query = "algorithm={}&afterTimestamp={}&beforeTimestamp={}".format(algorithm,afterTimestamp,beforeTimestamp)
+        return self.request('GET', '/main/api/v2/mining/rigs/stats/algo', query, None)
+
+    def get_mining_rigs_stats_unpaid(self,afterTimestamp, beforeTimestamp):
+        query = "afterTimestamp={}&beforeTimestamp={}".format(afterTimestamp,beforeTimestamp)
+        return self.request('GET', '/main/api/v2/mining/rigs/stats/unpaid', query, None)
+
+    def set_mining_rigs_status2(self, rigId, action, option):
         set_status = {
             "rigId": rigId,
-            "action": action
+            "action": action,
+            "options": [option]
         }
         return self.request('POST', '/main/api/v2/mining/rigs/status2', "", set_status)
+    
+    def get_mining_rigs2(self,size, page, path, sort, system, status):
+        query = "size={}&page={}&path={}&sort={}&system={}&status={}".format(size, page, path, sort, system, status)
+        return self.request('GET', '/main/api/v2/mining/rigs2', query, None)
     
 if __name__ == "__main__":
     parser = optparse.OptionParser()
