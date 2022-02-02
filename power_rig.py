@@ -12,7 +12,7 @@ secMyac = dict(config_ini.items("MYACCOUNT"))        # セクションの値を�
 dt = datetime.now()
 print(dt)
 # アカウント情報
-private_api = nicehash.private_api(secMyac["host"], secMyac["organisation_id"], secMyac["key"], secMyac["secret"])
+private_api = nicehash.private_api(secMyac["host"], secMyac["organisation_id"], secMyac["apikey"], secMyac["apisecret"])
 
 rigid = "0-9k0l6RHDUkaD--ifeoEvsA"
 # Quick MinerではHIGHがMEDIUM、MEDIUMがLITE、LOWが最適化OFF
